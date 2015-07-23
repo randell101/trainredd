@@ -1,0 +1,16 @@
+<h1>Welcome to TrainRedd</h1>
+<%= link_to "sign in" , new_user_session_path %>
+<%= link_to "sign up" , new_user_registration_path %>
+<% @posts.each do |post| %>
+  <h2><%= link_to post.title, post %></h2>
+  <p>
+    <%= time_ago_in_words post.created_at %> ago
+  </p>
+  <% end %>
+
+
+<%binding.pry%>
+
+  <p>
+    <%= link_to "New post" , new_post_path %>
+  </p>
