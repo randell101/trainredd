@@ -15,10 +15,13 @@
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
+   <%= f.file_field :post %>
+   <%= f.hidden_field :post_cache %>
   <div class="field">
     <%= f.label :text %><br>
-    <%= f.text_area :text %>
+    <%= text_area :text, "", :class => "tinymce", :rows => 20, :cols => 20 %>
   </div>
+  <%= tinymce %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -25,7 +25,12 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+    
+    @post.post=params[:post][:post]
+    # File.open('/images') do |f|
+    # @post.post = f
+    # end
+    @post.text=params[:text].first
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -41,6 +46,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
+       @post.post=params[:post][:post]
+      #binding.pry
+    @post.text=params[:text].first
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }

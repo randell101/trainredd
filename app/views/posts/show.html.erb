@@ -1,6 +1,6 @@
 <h1> <%= @post.title %></h1> 
-
-<%= @post.text %>
+<%= image_tag(@post.post_url) if @post.post? %>
+<%= raw @post.text %>
 
 <h2>Comments</h2>
 
@@ -23,7 +23,9 @@
 <p>
 <%= link_to "Back" , posts_path %>
 
+<%if current_user && current_user.role_id==1%>
 <%= link_to "edit" , edit_post_path(@post) %>
 
 <%= link_to "Delete" , @post, :method => :delete, :confirm => "Are you sure?" %>
+<%end%>
 </p>
