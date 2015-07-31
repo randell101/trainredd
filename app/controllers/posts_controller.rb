@@ -12,6 +12,19 @@ class PostsController < ApplicationController
   def show
   end
 
+
+  def upvote
+  @post = Post.find(params[:id])
+  @post.liked_by current_user
+  
+end
+
+def downvote
+  @post = Post.find(params[:id])
+  @post.downvote_from current_user
+ 
+end
+
   # GET /posts/new
   def new
     @post = Post.new

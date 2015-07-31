@@ -44,6 +44,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_votable (0.10.0)
     arel (6.0.2)
     bcrypt (3.1.10)
     bcrypt (3.1.10-x86-mingw32)
@@ -229,6 +230,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  acts_as_votable (~> 0.10.0)
   byebug
   carmen-rails (~> 1.0.0)
   carrierwave
