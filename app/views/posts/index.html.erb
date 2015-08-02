@@ -1,6 +1,12 @@
 
 
-
+<div class="large-12 medium-12 small-12 columns">
+ <%= image_tag(@highestvoted.first.post_url) if @highestvoted.first.post? %>
+  <h2><%= link_to @highestvoted.first.title, @highestvoted.first %></h2>
+  <p>
+    <%= time_ago_in_words @highestvoted.first.created_at %> ago
+  </p>
+  </div>
 
 <% @posts.each do |post| %>
 <div class="large-4 medium-3 small-1 columns">
@@ -9,14 +15,44 @@
   <p>
     <%= time_ago_in_words post.created_at %> ago
   </p>
-  <img src="assets/good_mark.png"><span class='count'>34</span>
-  <img src="assets/bad_mark.png">
+  <%if current_user%>
+  <img src='assets/good_mark.png' onClick="upvote(<%=post.id%>);"><span class='count<%=post.id%>'><%@post=Post.find(post.id)%>
+  <%= @post.get_upvotes.size%>
+  </span>
+  <img src='assets/bad_mark.png' onClick="downvote(<%=post.id%>);">
+  <%end%>
   </div>
 <% end %>
 
 
 <%if current_user && current_user.role_id==1%>
+<div class="large-12 medium-12 small-12 columns">
+<br>
   <p>
     <%= link_to "New post" , new_post_path ,class: 'button'%>
   </p>
+  </div>
 <%end%>
+
+<script>
+function upvote(postid){
+      $.ajax({
+           type:'POST', 
+           url: '/posts/upvote', 
+           data: $.param({ id: postid  }),
+           success: function(data){
+            $('.count'+postid).html(data);
+           }
+      });
+}
+function downvote(postid){
+      $.ajax({
+           type:'POST', 
+           url: '/posts/downvote', 
+           data: $.param({ id: postid  }),
+           success: function(data){
+            $('.count'+postid).html(data);
+           }
+      });
+}
+    </script>

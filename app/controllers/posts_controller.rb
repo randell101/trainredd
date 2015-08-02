@@ -1,10 +1,16 @@
 class PostsController < ApplicationController
+ 
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+ 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @highestvoted=Post.highest_voted.limit(1)
+
+    @posts = Post.where.not(:id=>@highestvoted.first.id)
+    
+  
+
   end
 
   # GET /posts/1
@@ -13,16 +19,24 @@ class PostsController < ApplicationController
   end
 
 
+ 
+
+
   def upvote
+   
+
   @post = Post.find(params[:id])
-  @post.liked_by current_user
+ @post.liked_by current_user
+ @res= @post.get_upvotes.size
+  render :html =>@res
   
 end
 
 def downvote
   @post = Post.find(params[:id])
   @post.downvote_from current_user
- 
+  @res= @post.get_upvotes.size
+   render :html =>@res
 end
 
   # GET /posts/new
@@ -85,6 +99,7 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
+      
       @post = Post.find(params[:id])
     end
 

@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
  devise_for :users
-
+  
   resources :posts do
-    resource :comments
+  resource :comments
   end 
+  match 'posts/upvote' => "posts#upvote" ,:via=> [:get,:post]
+  match 'posts/downvote' => "posts#downvote" ,:via=> [:get,:post]
 
   root 'posts#index'
   # The priority is based upon order of creation: first created -> highest priority.
